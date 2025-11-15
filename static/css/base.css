@@ -1,0 +1,52 @@
+.navbar {
+    background-color: #c2ddf8 !important;
+}
+
+.navbar .btn-light {
+    background-color: #f8f9fa;
+    transition: all 0.2s ease-in-out;
+}
+
+.navbar .btn-light:hover {
+    background-color: #e9ecef;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar .bi-person-circle {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+.navbar .logout-form {
+    display: inline-block;
+}
+
+/* admin button styling */
+.navbar .btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+}
+
+.navbar .btn-warning:hover {
+    background-color: #ffca2c;
+    border-color: #ffc720;
+    color: #212529;
+}
+
+/* ensure all navbar buttons have consistent spacing */
+.navbar .nav-item {
+    display: flex;
+    align-items: center;
+}
+
+/* add a subtle transition to all buttons */
+.navbar .btn {
+    transition: all 0.2s ease-in-out;
+}
+
+.navbar .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

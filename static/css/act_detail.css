@@ -1,0 +1,109 @@
+/* activity image placeholder */
+.activity-image {
+    width: 100%;
+    background-color: #f0f0f0;
+    border: 2px dashed #ccc;
+    color: #888;
+    font-size: 16px;
+}
+
+/* map and comments placeholders */
+.map-placeholder, .comments-placeholder {
+    width: 100%;
+    background-color: #ddd;
+    color: #333;
+    font-size: 18px;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+.comments-section {
+    height: 400px;  /* same height as map */
+    display: flex;
+    flex-direction: column;
+}
+
+.comments-list {
+    overflow-y: auto;
+    max-height: 100%;
+    scrollbar-width: thin;  /* for firefox */
+    scrollbar-color: #888 #f1f1f1;  /* for firefox */
+}
+
+/* webkit scrollbar styling (chrome, safari, edge) */
+.comments-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.comments-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.comments-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.participants-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.participants-list {
+    margin-top: 10px;
+}
+
+.participant-item {
+    padding: 8px;
+    margin: 5px 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.host-badge {
+    background-color: #007bff;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+}
+
+.join-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.join-btn:hover {
+    opacity: 0.9;
+}
+
+.already-joined {
+    color: #28a745;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.activity-full {
+    color: #dc3545;
+    font-weight: bold;
+    margin-top: 10px;
+}

@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Meetup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        {% block navbar %}  <!-- navbar -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    Meetup
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'report_issue' %}">Report</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'activities' %}">Find</a>
+                        </li>
+                        {% if user.is_authenticated %}  <!-- if the user is authenticated -->
+                        <li class="nav-item">
+                            <!-- if the user has unread messages, display the number of unread messages -->
+                            <a class="nav-link" href="{% url 'chat_home' %}">Conversations {% if unread_messages > 0 %}({{ unread_messages }}){% endif %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'manage_requests' %}">Requests</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        {% if user.is_authenticated %}  <!-- if the user is authenticated -->
+                            {% if not user.is_staff %}  <!-- if the user is not a staff -->
+                                <li class="nav-item me-3">
+                                    <a href="{% url 'userProfile' %}" class="btn btn-light border d-flex align-items-center">
+                                        <i class="bi bi-person-circle me-2"></i>
+                                        <span>{{ user.username }}</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if user.is_staff %}  <!-- if the user is a staff -->
+                                <li class="nav-item me-3">
+                                    <a href="{% url 'admin:index' %}" class="btn btn-light border d-flex align-items-center">
+                                        <i class="bi bi-person-circle me-2"></i>
+                                        <span>Admin Home</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <form method="post" action="{% url 'logout' %}" class="logout-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-primary">Logout</button>
+                            </form>
+                        {% else %}  <!-- if the user is not authenticated -->
+                            <li class="nav-item">
+                                <a class="btn btn-outline-secondary me-2" href="{% url 'login' %}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-primary" href="{% url 'register' %}">Register</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% endblock %}
+    </header>
+
+    <!-- you could see without login -->
+    <main class="flex-grow-1">
+        {% block content %}
+        <div>
+            Oops something went wrong! <br />
+        </div>
+        {% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

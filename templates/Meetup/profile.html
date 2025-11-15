@@ -1,0 +1,110 @@
+{% extends "Meetup/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-12 col-md-3 col-lg-2 sidebar">
+
+            <!-- Profile Avatar -->
+            <div class="profile-avatar">
+                <img src="{% static 'images/logo.png' %}" alt="Avatar">
+            </div>
+
+            <!-- Navigation -->
+            <ul class="nav flex-column fw-semibold">
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="{% url 'userProfile' %}"> 
+                        Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{% url 'chat_home' %}">
+                        Messaging
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{% url 'activitiesmanage' %}">
+                        Activities
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="col-12 col-md-9 col-lg-10 p-5">
+            {% block subContent %}
+
+            <div class="border p-4">
+                <h3 class="mb-3">Profile</h3>
+
+                <!-- Profile Form -->
+                <form method="POST" action="{% url 'modifyProfile' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="usernameInput" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="usernameInput" name="username"
+                            placeholder="Input Field" value="{{ username }}">
+                    </div>
+
+                    <!-- First Name and Last Name -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="firstnameInput" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstnameInput" name="first_name"
+                                placeholder="Input Field" value="{{ first_name }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastnameInput" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastnameInput" name="last_name"
+                                placeholder="Input Field" value="{{ last_name }}">
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="emailInput" name="email" placeholder="Input Field"
+                            value="{{ email }}">
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label for="passwordInput" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="passwordInput" name="password"
+                            placeholder="Input Field">
+                    </div>
+
+                    <!-- Bio -->
+                    <div class="mb-3">
+                        <label for="bioInput" class="form-label">Bio</label>
+                        <textarea class="form-control" id="bioInput" name="bio" rows="3"
+                            placeholder="Input Field">{{ bio }}</textarea>
+                    </div>
+
+                    <!-- Modify Button -->
+                    <div class="btn-group-profile">
+                        <button type="submit" class="btn btn-secondary">MODIFY</button>
+                    </div>
+                </form>
+
+                <!-- Delete Account -->
+                <form method="POST" action="{% url 'deleteUser' %}">
+                    {% csrf_token %}
+                    <div class="btn-group-profile mt-3">
+                        <button type="submit" class="btn btn-dark">DELETE ACCOUNT</button>
+                    </div>
+                </form>
+
+            </div> <!-- /border -->
+            {% endblock subContent %}
+        </div> <!-- /col -->
+    </div> <!-- /row -->
+</div> <!-- /container-fluid -->
+{% endblock content %}

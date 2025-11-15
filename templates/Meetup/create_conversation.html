@@ -1,0 +1,29 @@
+{% extends "Meetup/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="create-chat-container">
+    <a href="{% url 'chat_home' %}" class="back-button">← Back to Conversations</a>
+    
+    <h2>Start a New Conversation</h2>
+    
+    <ul class="user-list">
+        {% for user in users %}  <!-- for loop to iterate through the users -->
+        <li class="user-item">
+            <span>{{ user.username }}</span>  <!-- display the user username -->
+            <form method="post" class="start-chat-form">
+                {% csrf_token %}
+                <input type="hidden" name="participant_id" value="{{ user.id }}">
+                <button type="submit" class="start-chat-btn">Start Chat</button>
+            </form>
+        </li>
+        {% empty %}
+        <li class="user-item">No users available to chat with.</li>  <!-- display the message if there are no users available to chat with -->
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %} 

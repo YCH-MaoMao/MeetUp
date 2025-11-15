@@ -1,0 +1,29 @@
+/* profile.css */
+
+.sidebar {
+    min-height: 92vh;
+    background-color: #f8f9fa;
+}
+
+.profile-avatar {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+}
+
+.profile-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.nav-link:hover {
+    background-color: #e2e6ea;
+}
+
+
+.btn-group-profile .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}

@@ -1,0 +1,26 @@
+# Core Django and database
+Django<5.0
+python-dotenv>=1.0.1
+mysqlclient>=2.2.4
+
+# Channels and real-time features
+channels>=4.0.0
+channels-redis>=4.1.0
+daphne>=4.0.0
+redis>=5.0.1
+
+# Geolocation and mapping
+requests>=2.31.0  # For postcodes.io API calls
+urllib3>=2.2.0   # For making HTTP requests
+geopy>=2.4.1     # For geocoding and distance calculations
+
+# Frontend and UI
+django-bootstrap5>=23.3  # For Bootstrap 5 integration
+Pillow>=10.2.0    # For image handling
+whitenoise>=6.6.0  # For serving static files
+
+# Development and testing
+django-debug-toolbar>=4.3.0 
+
+# Authentication and security
+django-allauth>=0.61.0  # For social authentication (if needed later) 

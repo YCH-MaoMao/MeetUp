@@ -1,0 +1,68 @@
+[
+    {
+        "id": 1,
+        "name": "Mountain Hiking Adventure",
+        "description": "Join us for an exhilarating mountain hiking experience.",
+        "category": "Hiking",
+        "date_time": "2025-04-10 08:00",
+        "location": "Ben Nevis, Scotland",
+        "zipcode":"PH33 6TE",
+        "distance": "50km away from you",
+        "image": "hiking.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Weekend Beach Volleyball",
+        "description": "Enjoy a fun game of beach volleyball with friends.",
+        "category": "Sport",
+        "date_time": "2025-04-15 16:00",
+        "location": "Portobello Beach, Edinburgh",
+        "zipcode":"EH15 2DX",
+        "distance": "20km away from you",
+        "image": "volleyball.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Charity Marathon Run",
+        "description": "Participate in a charity run and support a good cause.",
+        "category": "Volunteer",
+        "date_time": "2025-05-01 07:30",
+        "location": "Glasgow Green, Glasgow",
+        "zipcode":"G1 5DB",
+        "distance": "5km away from you",
+        "image": "marathon.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Film Screening: Classic Movies",
+        "description": "Watch classic movies and discuss their impact.",
+        "category": "Film",
+        "date_time": "2025-03-20 19:00",
+        "location": "GFT Cinema, Glasgow",
+        "zipcode":"G3 6RB",
+        "distance": "3km away from you",
+        "image": "cinema.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Backpacking in Europe",
+        "description": "A travel meetup for backpacking across Europe.",
+        "category": "Travel",
+        "date_time": "2025-06-10 09:00",
+        "location": "Starting in London British Museum",
+        "zipcode":"WC1B 3DG",
+        "distance": "N/A",
+        "image": "backpacking.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Shopping Spree at Local Market",
+        "description": "Explore the best local markets and shop unique products.",
+        "category": "Shopping",
+        "date_time": "2025-04-05 11:00",
+        "location": "Merchant City, Glasgow",
+        "zipcode":"G1 1UL",
+        "distance": "2km away from you",
+        "image": "shopping.jpg"
+    }
+]

@@ -1,0 +1,45 @@
+{% extends "Meetup/base.html" %}
+{% load static %}
+
+{% block content %}
+{% if messages %}  <!-- if there are messages -->
+<div class="mt-3">
+    {% for message in messages %}  <!-- for loop to iterate through the messages -->
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show"
+        role="alert">
+        {{ message }}  <!-- display the message -->
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container mt-5 text-center">
+    <h2 class="fw-bold">Tell us your feeling or report an issue below</h2>
+
+    <form method="POST" action="{% url 'report_issue' %}" class="mt-4">
+        {% csrf_token %}
+
+        <!-- Type Dropdown -->
+        <div class="mb-3 text-start w-50 mx-auto">
+            <label for="typeInput" class="form-label">Type</label>
+            <select class="form-select" id="typeInput" name="issue_type" required>
+                <option value="" disabled selected>Dropdown</option>
+                <option value="1">Bug Report</option>
+                <option value="2">Feedback</option>
+                <option value="3">Suggestion</option>
+                <option value="4">Other</option>
+            </select>
+        </div>
+
+        <!-- Detail Textarea -->
+        <div class="mb-3 text-start w-50 mx-auto">
+            <label for="detailInput" class="form-label">Detail</label>
+            <textarea class="form-control border border-dark" id="detailInput" rows="5" name="detail"
+                placeholder="Add text" required></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-dark">SEND</button>
+    </form>
+</div>
+{% endblock %}

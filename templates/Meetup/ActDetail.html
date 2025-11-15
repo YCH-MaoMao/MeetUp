@@ -1,0 +1,101 @@
+{% extends "Meetup/base.html" %}
+{% load static %}
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/act_detail.css' %}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Activity Details -->
+        <div class="col-md-6">
+            <h2 class="fw-bold">{{ activity.title }}</h2>  <!-- display the activity title -->  
+            <p><strong>Description:</strong> {{ activity.description }}</p>  <!-- display the activity description -->
+            <p><strong>Address:</strong> {{ activity.location }}, {{ activity.zipcode }}</p>  <!-- display the activity address and zipcode -->
+            <p><strong>Date & Time:</strong> {{ activity.date_time }}</p>  <!-- display the activity date and time -->
+            <div class="d-flex">
+                {% if user.id != activity.user_id %}  <!-- don't show join button to the host -->
+                    {% if user in activity.participants.all %}
+                        <p class="me-2 mb-0 align-self-center">You are already participating in this activity</p>
+                    {% else %}
+                        {% with participant_count=activity.participants.all|length %}  <!-- get the number of participants -->
+                            {% if participant_count < activity.max_participants %}  <!-- check if number of participants is less than the max number of participants -->
+                                <form method="POST" action="{% url 'request_to_join' activity.id %}" class="me-2">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-dark">Request to Join</button>
+                                </form>
+                            {% else %}
+                                <p class="me-2 mb-0 align-self-center">This activity is full</p>  <!-- display the message if the activity is full -->
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                {% endif %}
+                {% if activity.user_id != user.id %}  <!-- don't show contact host button to the host -->
+                <a href="{% url 'create_conversation' %}?participant_id={{ activity.user_id }}" class="btn btn-outline-dark">Contact Host</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- Map Section -->
+    <div class="row mt-4">
+        <div class="col-md-6 text-center">
+            <!-- Map container -->
+            <div id="map" class="border rounded"></div>
+        </div>
+        <!-- Comments Section -->
+        <div class="col-md-6">
+            <div class="comments-section border rounded p-3 d-flex flex-column">
+                <h4 class="mb-3">Comments</h4>
+                
+                <!-- Comments List -->
+                <div class="comments-list flex-grow-1 overflow-auto mb-3">
+                    {% for comment in comments %}  <!-- for loop to iterate through the comments -->
+                    <div class="comment mb-3 p-3 border rounded">
+                        <div class="d-flex justify-content-between">
+                            <strong>{{ comment.user.username }}</strong>  <!-- display the comment username -->
+                            <small class="text-muted">{{ comment.timestamp|date:"F j, Y, g:i a" }}</small>  <!-- display the comment timestamp -->
+                        </div>
+                        <p class="mt-2 mb-0">{{ comment.content }}</p>  <!-- display the comment content -->
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">No comments yet. Be the first to comment!</p>  <!-- display the message if there are no comments -->
+                    {% endfor %}
+                </div>
+
+                <!-- Comment Form -->
+                <form method="POST" action="{% url 'add_comment' activity.id %}" class="mt-auto">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="content" class="form-control" rows="3" placeholder="Write a comment..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-dark mt-2">Post Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Participants Section -->
+    <div class="participants-section mt-4">
+        <h3>Participants ({{ activity.participants.all|length }}/{{ activity.max_participants }})</h3>  <!-- display the number of participants and the max number of participants -->
+        <div class="participants-list">
+            {% for participant in activity.participants.all %}  <!-- for loop to iterate through the participants -->
+                <div class="participant-item">
+                    {{ participant.username }}  <!-- display the participant username -->
+                    {% if participant.id == activity.user_id %}
+                        <span class="host-badge">Host</span>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p class="text-muted">No participants yet. Be the first to join!</p>  <!-- display the message if there are no participants -->
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Leaflet map -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var activityAddress = "{{ activity.location }}";
+    var activityZipcode = "{{ activity.zipcode|escapejs }}";
+</script>
+<script src="{% static 'js/scripts.js' %}"></script>
+{% endblock %}

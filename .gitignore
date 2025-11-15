@@ -1,0 +1,14 @@
+*.pyc
+**/__pycache__/
+db.sqlite3
+.env
+.env.local
+.env.*.local
+**/.idea/
+**/.vscode/
+staticfiles/
+Lib/
+Scripts/
+**/migrations/*
+!**/migrations/__init__.py
+Meetup/pyvenv.cfg

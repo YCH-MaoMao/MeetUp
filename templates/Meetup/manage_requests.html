@@ -1,0 +1,38 @@
+{% extends "Meetup/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/manage_requests.css' %}">
+
+<div class="requests-container">
+    <h2>Manage Join Requests</h2>
+    
+    {% if pending_requests %}  <!-- if there are pending requests -->
+        <div class="requests-list">
+            {% for request in pending_requests %}  <!-- for loop to iterate through the pending requests -->
+                <div class="request-item">
+                    <div class="request-info">
+                        <h3>{{ request.activity.title }}</h3>  <!-- display the activity title -->  
+                        <p>Request from: {{ request.user.username }}</p>  <!-- display the request from username -->
+                        <p>Requested on: {{ request.created_at|date:"F j, Y" }}</p>  <!-- display the request created on date -->
+                    </div>
+                    <div class="request-actions">
+                        <form method="POST" action="{% url 'handle_request' request.id %}" class="inline-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="accept">
+                            <button type="submit" class="btn accept-btn">Accept</button>
+                        </form>
+                        <form method="POST" action="{% url 'handle_request' request.id %}" class="inline-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="reject">
+                            <button type="submit" class="btn reject-btn">Reject</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-requests">No pending requests at this time.</p>  <!-- display the message if there are no pending requests -->
+    {% endif %}
+</div>
+{% endblock %} 

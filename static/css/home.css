@@ -1,0 +1,88 @@
+.about-section {
+    text-align: center;
+}
+
+.about-image {
+    width: 100%; /* set the container width */
+    margin: 0 auto; /* center the image */
+}
+
+.about-image img {
+    width: 100%; /* make the image fill the container */
+    height: auto; /* maintain aspect ratio */
+    border-radius: 10px; /* optional: add rounded corners */
+    object-fit: cover; /* ensure it covers the area nicely */
+}
+
+/* activity card styling */
+.activity-card {
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* hover effect */
+.activity-card:hover {
+    transform: scale(1.05);
+}
+
+/* activity icon */
+.activity-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+/* activity title */
+.activity-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* activity rating */
+.activity-rating {
+    font-size: 16px;
+    color: #f39c12; /* star rating color */
+    margin-top: 5px;
+}
+
+/* optional: reviews count */
+.activity-reviews {
+    font-size: 14px;
+    color: #777;
+}
+
+/* cta section */
+.cta-section {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* cta box */
+.cta-box {
+    width: 60%;
+    background-color: #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* cta button */
+.cta-button {
+    display: inline-block;
+    background-color: #000;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.cta-button:hover {
+    background-color: #333;
+}

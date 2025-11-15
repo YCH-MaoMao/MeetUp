@@ -1,0 +1,57 @@
+{% extends "Meetup/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+
+    <!-- About Section -->
+    <section class="about-section mb-5">
+        <h2 class="fw-bold">About</h2>
+        <p>Sign up now!</p>
+        <div class="about-image border rounded mx-auto">
+            <img src="{% static 'images/home.jpg' %}" class="img-thumbnail">
+        </div>
+        Illustration by <a
+            href="https://unsplash.com/@ruliffand?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Ruliff
+            Andrean</a> on <a
+            href="https://unsplash.com/illustrations/a-group-of-people-standing-next-to-each-other-I3bDMngkHKU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+    </section>
+
+    <!-- Hot Activities Section -->
+    <section class="hot-activities">
+        <h3 class="fw-bold">Hot Activities</h3>
+        <p>Come and join!!</p>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for activity in hot_activities %}  <!-- for loop to iterate through the hot activities -->
+            <div class="col">
+                <a href="{% url 'ActDetail' activity.id %}" >
+                    <div class="activity-card">
+                        <div class="activity-icon"></div>
+                        <h5 class="activity-title">{{ activity.name }}</h5>  <!-- display the activity name -->
+                        <p class="activity-rating">{{ activity.rating }}⭐</p>  <!-- display the activity rating -->
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-box">
+            <p class="fw-bold mb-1">Want to have fun?</p>
+            <p class="mb-3">Match Your Vibe, Find Your Tribe!</p>
+            <a href="{% url 'activities' %}" class="cta-button">Start</a>
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+.image-placeholder {
+    height: 10vh; 
+}
+
+#picnic_pic {
+    max-height: 100%; 
+    width: auto; 
+    object-fit: contain;
+}

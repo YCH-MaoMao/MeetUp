@@ -1,0 +1,15 @@
+{% extends "Meetup/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="logout-container">
+    <div class="message">
+        You have been successfully logged out.
+    </div>
+    <a href="{% url 'home' %}" class="home-link">Return to Home</a>
+</div>
+{% endblock %} 

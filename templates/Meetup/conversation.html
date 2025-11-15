@@ -1,0 +1,46 @@
+{% extends "Meetup/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <a href="{% url 'chat_home' %}" class="back-button">← Back to Conversations</a>
+    
+    <div class="chat-header">
+        <h2>Chat with 
+            {% for participant in conversation.participants.all %}  <!-- for loop to iterate through the participants -->
+                {% if participant != user %}  <!-- if the participant is not the user -->
+                    {{ participant.username }}  <!-- display the participant username -->
+                {% endif %}
+            {% endfor %}
+        </h2>
+    </div>
+
+    <div class="messages-container" id="messages">
+        {% for message in messages %}  <!-- for loop to iterate through the messages -->
+            <div class="message {% if message.sender == user %}sent{% else %}received{% endif %}">
+                <div class="message-content">{{ message.content }}</div>  <!-- display the message content -->
+                <div class="message-meta">
+                    {{ message.sender.username }} - {{ message.timestamp|date:"g:i A" }}  <!-- display the message sender username and timestamp -->
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="message-form">
+        <input type="text" id="chat-message-input" class="message-input" placeholder="Type your message...">
+        <button id="chat-message-submit" class="send-button">Send</button>
+    </div>
+</div>
+
+<!-- Hidden elements for JavaScript -->
+<div id="conversation-id" data-id="{{ conversation.id }}" style="display: none;"></div>
+<div id="current-user" data-username="{{ user.username }}" style="display: none;"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/conversation.js' %}"></script>
+{% endblock %} 

@@ -1,0 +1,117 @@
+{% extends "Meetup/base.html" %}
+{% load static %}
+
+{% block extra_head %} 
+  <link rel="stylesheet" href="{% static 'css/activities.css' %}"> 
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar for Categories -->
+        <div class="col-12 col-md-3 col-lg-2 sidebar">
+            <h5 class="fw-bold">CATEGORIES</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link {% if not selected_category %}active{% endif %}" href="{% url 'activities' %}">
+                        <i class="bi bi-globe"></i> ALL
+                    </a>
+                </li>
+                {% for category in category_list %}  <!-- for loop to iterate through the categories -->
+                <li class="nav-item">
+                    <a class="nav-link {% if selected_category == category.name %}active{% endif %}" href="?category={{ category }}">
+                        <i class="bi bi-tag"></i> {{ category }}  <!-- display the category name -->
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-12 col-md-9 col-lg-10">
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <!-- Search Bar -->
+                <div class="input-group w-50">
+                    <input type="text" class="form-control" id="search-input" placeholder="Search" value="{{ search_query }}">
+                    <button class="btn btn-outline-secondary">
+                        <i class="bi bi-search"></i> Apply
+                    </button>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="ms-3">
+                        <select class="form-select" id="sort-select">
+                            <option value="">Sort by</option>
+                            <option value="Almost full" {% if selected_sort == "Almost full" %}selected{% endif %}>Almost full</option>
+                            <option value="time" {% if selected_sort == "time" %}selected{% endif %}>Time (Latest)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                {% for activity in activities %}  <!-- for loop to iterate through the activities -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ activity.title }}</h5>  <!-- display the activity title -->
+                            <p class="card-text">
+                                <i class="bi bi-calendar"></i> {{ activity.date_time }}<br>  <!-- display the activity date and time -->
+                                <i class="bi bi-geo-alt"></i> {{ activity.location }}  <!-- display the activity location -->
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="btn btn-dark" data-activity-id="{{ activity.id }}">Details</button>  <!-- view the activity details -->
+                                <i class="bi bi-three-dots"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}  <!-- if there are no activities, display the following message -->
+                <div class="col-12 text-center">
+                    <p class="fw-bold text-muted">No activities found.</p>
+                </div>
+                {% endfor %}
+
+                <!-- "Could not find?" Card -->
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body d-flex flex-column justify-content-center">
+                            <p class="fw-bold">Can't find what you're looking for?</p>
+                            <button class="btn btn-dark" data-action="add-activity">Add your own activity</button>  <!-- add a new activity -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center mt-4">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if activities.has_previous %}  <!-- check if there is a previous page -->
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ activities.previous_page_number }}">Previous</a>
+                        </li>
+                        {% endif %}
+
+                        {% for num in activities.paginator.page_range %}  <!-- for loop to iterate through the pages -->
+                        <li class="page-item {% if activities.number == num %}active{% endif %}">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>  <!-- display the page number -->
+                        </li>
+                        {% endfor %}
+
+                        {% if activities.has_next %}  <!-- check if there is a next page -->
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ activities.next_page_number }}">Next</a>  <!-- go to the next page -->
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/activities.js' %}"></script>
+{% endblock %}
